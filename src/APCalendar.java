@@ -1,8 +1,5 @@
 public class APCalendar {
     private int year;
-    public APCalendar(int year){
-        this.year = year;
-    }
     private static boolean isLeapYear(int year){
         return (year % 4 == 0);
     }
@@ -18,8 +15,12 @@ public class APCalendar {
         leapYears = leapYears + (diff/4);
         return leapYears;
     }
-    private static int firstDayOfYear(int year){
-        return 0;
+    public static int firstDayOfYear(int year){
+        int days = 0;
+        if (isLeapYear(year)){
+            days++;
+        }
+        return ((year*days) % 7);
     }
     private static int dayOfYear(int month, int day, int year){
         return 0;
