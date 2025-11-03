@@ -16,14 +16,11 @@ public class APCalendar {
         return leapYears;
     }
     public static int firstDayOfYear(int year){
-        int days = 0;
-        if (isLeapYear(year)){
-            days++;
-        }
-        return ((year*days) % 7);
+        int leapYears = (int) ((year-1)/4);
+        return ((((year-leapYears-1)*365)+(leapYears*366)) % 7);
     }
     private static int dayOfYear(int month, int day, int year){
-        return 0;
+        return (month* 4) + firstDayOfYear(year);
     }
     public static int dayOfWeek(int month, int day, int year){
         return 0;
