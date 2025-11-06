@@ -15,14 +15,35 @@ public class APCalendar {
         leapYears = leapYears + (diff/4);
         return leapYears;
     }
-    public static int firstDayOfYear(int year){
+    private static int firstDayOfYear(int year){
         int leapYears = (int) ((year-1)/4);
         return ((((year-leapYears-1)*365)+(leapYears*366)) % 7);
     }
     private static int dayOfYear(int month, int day, int year){
-        return (month* 4) + firstDayOfYear(year);
+        int endDay = 0;
+        for (int i = 1; i<= month; i++){
+            if (i < 7){
+                if (i == 2){
+                    endDay += 28;
+                    if (isLeapYear(year)) endDay++;
+                } else if (i%2 == 0){
+                    endDay += 30;
+                } else {
+                    endDay += 31;
+                }
+            } else if (i<=12){
+                if (i%2 == 1){
+                    endDay += 30;
+                } else {
+                    endDay += 31;
+                }
+            }
+        }
+        endDay += day;
+        return (endDay);
     }
     public static int dayOfWeek(int month, int day, int year){
-        return 0;
+        int endDay = dayOfYear(month, day, year) + firstDayOfYear(year);
+        return (endDay % 7);
     }
 }
