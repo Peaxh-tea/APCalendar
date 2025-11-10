@@ -1,23 +1,21 @@
 public class APCalendar {
     private int year;
     private static boolean isLeapYear(int year){
-        return (year % 4 == 0);
+        return (year % 4 == 0||(year % 400 == 0|| year % 100 != 0));
     }
     public static int numberOfLeapYears(int year1, int year2){
         int leapYears = 0;
-        if (year1 % 4 == 0) {
-            leapYears++;
-        }
-        if (year2 % 4 == 0) {
-            leapYears++;
-        }
-        int diff = year2 - year1 - 1;
-        leapYears = leapYears + (diff/4);
+        for (int i = year1; i <= year2; i++)
+            if (isLeapYear(i)) leapYears++;
         return leapYears;
     }
     private static int firstDayOfYear(int year){
-        int leapYears = (int) ((year-1)/4);
-        return ((((year-leapYears-1)*365)+(leapYears*366)) % 7);
+        int day = 1;
+        for (int i = 1; i< year; i++){
+            day++;
+            if (isLeapYear(i)) day++;
+        }
+        return day % 7;
     }
     private static int dayOfYear(int month, int day, int year){
         int endDay = 0;
